@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getTasks, filterTasks } from '../../features/tasks/taskSlice';
 import { logout } from '../../features/auth/authSlice';
-import { FaTasks, FaClock, FaCheck, FaExclamationTriangle, FaSignOutAlt } from 'react-icons/fa';
+import { FaTasks, FaClock, FaCheck, FaExclamationTriangle, FaSignOutAlt, FaPlus } from 'react-icons/fa';
 import Spinner from '../../components/ui/Spinner';
 import TaskTable from '../../components/tasks/TaskTable';
 
@@ -79,13 +80,22 @@ function Dashboard() {
               : 'Track your tasks and progress'}
           </p>
         </div>
-        <button
-          onClick={handleLogout}
-          className="logout-btn flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transform hover:scale-[1.03] active:scale-95"
-        >
-          <FaSignOutAlt />
-          <span>Logout</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <Link 
+            to="/tasks/new"
+            className="create-task-btn flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transform hover:scale-[1.03] active:scale-95 animate-fade-in"
+          >
+            <FaPlus />
+            <span>New Task</span>
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="logout-btn flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transform hover:scale-[1.03] active:scale-95"
+          >
+            <FaSignOutAlt />
+            <span>Logout</span>
+          </button>
+        </div>
       </div>
 
       {/* Stats Cards */}

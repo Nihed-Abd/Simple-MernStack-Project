@@ -120,10 +120,9 @@ function TaskList() {
             className="select-input"
           >
             <option value="all">All statuses</option>
-            <option value="backlog">Backlog</option>
-            <option value="in-progress">In Progress</option>
-            <option value="review">Review</option>
-            <option value="completed">Completed</option>
+            <option value="à faire">À faire</option>
+            <option value="en cours">En cours</option>
+            <option value="terminée">Terminée</option>
           </select>
         </div>
       </motion.div>

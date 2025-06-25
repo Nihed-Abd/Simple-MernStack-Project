@@ -19,6 +19,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import TaskBoard from './pages/dashboard/TaskBoard';
 import TaskList from './pages/tasks/TaskList';
 import TaskForm from './pages/tasks/TaskForm';
+import TestTaskForm from './pages/tasks/TestTaskForm';
 import TaskDetail from './pages/tasks/TaskDetail';
 
 // Users (Manager only)
@@ -35,6 +36,9 @@ function App() {
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* Test Route - Direct access */}
+          <Route path="/test" element={<TestTaskForm />} />
 
           {/* Protected Routes */}
           <Route element={<PrivateRoute />}>
