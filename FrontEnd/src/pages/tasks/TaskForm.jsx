@@ -27,7 +27,7 @@ function TaskForm() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    status: 'backlog',
+    status: 'à faire',
     assignedTo: '',
   });
 
@@ -160,10 +160,9 @@ function TaskForm() {
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             >
-              <option value="backlog">Backlog</option>
-              <option value="in-progress">In Progress</option>
-              <option value="review">Review</option>
-              <option value="completed">Completed</option>
+              <option value="à faire">À faire</option>
+              <option value="en cours">En cours</option>
+              <option value="terminée">Terminée</option>
             </select>
           </div>
 
