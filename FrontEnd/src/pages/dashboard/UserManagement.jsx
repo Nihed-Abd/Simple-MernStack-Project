@@ -193,12 +193,9 @@ const UserManagement = () => {
 
       {/* Confirmation Modal */}
       {showConfirmDelete && (
-        <div className="confirm-delete-modal show">
-          <motion.div 
-            className="modal-content"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+        <div className="confirm-delete-modal show fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div 
+            className="modal-content bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full mx-4 animate-fade-in-down transform transition-all duration-300"
           >
             <div className="modal-header">
               <h3 className="modal-title">
@@ -221,7 +218,7 @@ const UserManagement = () => {
                 Delete User
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       )}
     </div>
