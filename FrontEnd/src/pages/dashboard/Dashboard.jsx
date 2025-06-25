@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTasks, filterTasks } from '../../features/tasks/taskSlice';
-import { FaTasks, FaClock, FaCheck, FaExclamationTriangle } from 'react-icons/fa';
+import { logout } from '../../features/auth/authSlice';
+import { FaTasks, FaClock, FaCheck, FaExclamationTriangle, FaSignOutAlt } from 'react-icons/fa';
 import Spinner from '../../components/ui/Spinner';
 import TaskTable from '../../components/tasks/TaskTable';
 
@@ -55,6 +56,11 @@ function Dashboard() {
   const handleStatusFilter = (e) => {
     setStatusFilter(e.target.value);
   };
+  
+  // Handle logout
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -62,15 +68,24 @@ function Dashboard() {
 
   return (
     <div className="dashboard p-6">
-      <div className="dashboard__header animate-fade-in mb-6">
-        <h1 className="dashboard__title text-3xl font-bold text-gray-800 dark:text-white mb-2">
-          Welcome, {user?.name}!
-        </h1>
-        <p className="dashboard__subtitle text-gray-600 dark:text-gray-300">
-          {user?.role === 'manager' 
-            ? 'Manage your team and track progress' 
-            : 'Track your tasks and progress'}
-        </p>
+      <div className="dashboard__header flex justify-between items-start animate-fade-in mb-6">
+        <div>
+          <h1 className="dashboard__title text-3xl font-bold text-gray-800 dark:text-white mb-2">
+            Welcome, {user?.name}!
+          </h1>
+          <p className="dashboard__subtitle text-gray-600 dark:text-gray-300">
+            {user?.role === 'manager' 
+              ? 'Manage your team and track progress' 
+              : 'Track your tasks and progress'}
+          </p>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="logout-btn flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transform hover:scale-[1.03] active:scale-95"
+        >
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </button>
       </div>
 
       {/* Stats Cards */}
