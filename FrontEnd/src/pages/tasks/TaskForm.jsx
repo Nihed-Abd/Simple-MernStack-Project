@@ -9,7 +9,6 @@ import {
 } from '../../features/tasks/taskSlice';
 import { getUsers } from '../../features/users/userSlice';
 import { FaTasks, FaSave, FaTimes } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import Spinner from '../../components/ui/Spinner';
 
 function TaskForm() {
@@ -108,63 +107,58 @@ function TaskForm() {
   }
 
   return (
-    <motion.div 
-      className="task-form-container"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="task-form-header">
-        <h1 className="task-form-title">
-          <FaTasks className="task-form-icon" />
+    <div className="task-form-container p-6 animate-fade-in">
+      <div className="task-form-header mb-6">
+        <h1 className="task-form-title flex items-center text-2xl font-bold text-gray-800 dark:text-white mb-2">
+          <FaTasks className="mr-2 text-blue-600 dark:text-blue-400" />
           {isEditMode ? 'Edit Task' : 'Create Task'}
         </h1>
-        <p className="task-form-subtitle">
+        <p className="task-form-subtitle text-gray-600 dark:text-gray-300">
           {isEditMode 
             ? 'Update task details and save changes' 
             : 'Fill in the details to create a new task'}
         </p>
       </div>
 
-      <div className="task-form-card">
-        <form onSubmit={handleSubmit} className="task-form">
+      <div className="task-form-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <form onSubmit={handleSubmit} className="task-form space-y-6">
           <div className="form-group">
-            <label htmlFor="title" className="form-label">Title</label>
+            <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Title</label>
             <input
               type="text"
               id="title"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className={`form-control ${formSubmitted && !formData.title.trim() ? 'is-invalid' : ''}`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ${formSubmitted && !formData.title.trim() ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'}`}
               placeholder="Enter task title"
             />
             {formSubmitted && !formData.title.trim() && (
-              <div className="invalid-feedback">Title is required</div>
+              <div className="text-red-500 text-sm mt-1">Title is required</div>
             )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="description" className="form-label">Description</label>
+            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
             <textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               placeholder="Enter task description"
               rows="4"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="status" className="form-label">Status</label>
+            <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Status</label>
             <select
               id="status"
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             >
               <option value="backlog">Backlog</option>
               <option value="in-progress">In Progress</option>
@@ -175,13 +169,13 @@ function TaskForm() {
 
           {user?.role === 'manager' && (
             <div className="form-group">
-              <label htmlFor="assignedTo" className="form-label">Assigned To</label>
+              <label htmlFor="assignedTo" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Assigned To</label>
               <select
                 id="assignedTo"
                 name="assignedTo"
                 value={formData.assignedTo}
                 onChange={handleChange}
-                className="form-control"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               >
                 <option value="">-- Unassigned --</option>
                 {users?.map(user => (
@@ -193,31 +187,27 @@ function TaskForm() {
             </div>
           )}
 
-          <div className="form-actions">
-            <motion.button 
+          <div className="form-actions flex justify-end gap-4 mt-8">
+            <button 
               type="button" 
               onClick={handleCancel}
-              className="btn btn-outline"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="px-4 py-2 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-transform active:scale-95 transform hover:scale-[1.02]"
             >
-              <FaTimes className="btn-icon" />
+              <FaTimes className="mr-2" />
               Cancel
-            </motion.button>
-            <motion.button 
+            </button>
+            <button 
               type="submit" 
-              className="btn btn-primary"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="px-4 py-2 flex items-center justify-center bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform active:scale-95 transform hover:scale-[1.02]"
               disabled={taskLoading}
             >
-              <FaSave className="btn-icon" />
+              <FaSave className="mr-2" />
               {isEditMode ? 'Update Task' : 'Create Task'}
-            </motion.button>
+            </button>
           </div>
         </form>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

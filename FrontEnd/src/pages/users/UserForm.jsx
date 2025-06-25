@@ -8,7 +8,6 @@ import {
   reset
 } from '../../features/users/userSlice';
 import { FaUser, FaSave, FaTimes } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import Spinner from '../../components/ui/Spinner';
 
 function UserForm() {
@@ -158,60 +157,53 @@ function UserForm() {
   }
 
   return (
-    <motion.div 
-      className="user-form-container"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="user-form-header">
-        <h1 className="user-form-title">
-          <FaUser className="user-form-icon" />
+    <div className="user-form-container p-6 animate-fade-in">
+      <div className="user-form-header mb-6">
+        <h1 className="user-form-title flex items-center text-2xl font-bold text-gray-800 dark:text-white mb-2">
+          <FaUser className="mr-2 text-blue-600 dark:text-blue-400" />
           {isEditMode ? 'Edit User' : 'Create User'}
         </h1>
-        <p className="user-form-subtitle">
-          {isEditMode 
-            ? 'Update user details and save changes' 
-            : 'Fill in the details to create a new user'}
+        <p className="user-form-subtitle text-gray-600 dark:text-gray-300">
+          {isEditMode ? 'Update user details and save changes' : 'Fill in the details to create a new user'}
         </p>
       </div>
 
-      <div className="user-form-card">
-        <form onSubmit={handleSubmit} className="user-form">
+      <div className="user-form-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <form onSubmit={handleSubmit} className="user-form space-y-6">
           <div className="form-group">
-            <label htmlFor="name" className="form-label">Full Name</label>
+            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Full Name</label>
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`form-control ${formSubmitted && formErrors.name ? 'is-invalid' : ''}`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ${formSubmitted && formErrors.name ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'}`}
               placeholder="Enter full name"
             />
             {formSubmitted && formErrors.name && (
-              <div className="invalid-feedback">{formErrors.name}</div>
+              <div className="text-red-500 text-sm mt-1">{formErrors.name}</div>
             )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="email" className="form-label">Email Address</label>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Email Address</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`form-control ${formSubmitted && formErrors.email ? 'is-invalid' : ''}`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ${formSubmitted && formErrors.email ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'}`}
               placeholder="Enter email address"
             />
             {formSubmitted && formErrors.email && (
-              <div className="invalid-feedback">{formErrors.email}</div>
+              <div className="text-red-500 text-sm mt-1">{formErrors.email}</div>
             )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
               {isEditMode ? 'New Password (leave blank to keep current)' : 'Password'}
             </label>
             <input
@@ -220,74 +212,70 @@ function UserForm() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={`form-control ${formSubmitted && formErrors.password ? 'is-invalid' : ''}`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ${formSubmitted && formErrors.password ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'}`}
               placeholder={isEditMode ? 'Enter new password or leave blank' : 'Enter password'}
               required={!isEditMode}
             />
             {formSubmitted && formErrors.password && (
-              <div className="invalid-feedback">{formErrors.password}</div>
+              <div className="text-red-500 text-sm mt-1">{formErrors.password}</div>
             )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="password2" className="form-label">Confirm Password</label>
+            <label htmlFor="password2" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Confirm Password</label>
             <input
               type="password"
               id="password2"
               name="password2"
               value={formData.password2}
               onChange={handleChange}
-              className={`form-control ${formSubmitted && formErrors.password2 ? 'is-invalid' : ''}`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ${formSubmitted && formErrors.password2 ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'}`}
               placeholder="Confirm password"
               required={!isEditMode && formData.password.length > 0}
             />
             {formSubmitted && formErrors.password2 && (
-              <div className="invalid-feedback">{formErrors.password2}</div>
+              <div className="text-red-500 text-sm mt-1">{formErrors.password2}</div>
             )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="role" className="form-label">Role</label>
+            <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Role</label>
             <select
               id="role"
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             >
               <option value="user">User</option>
               <option value="manager">Manager</option>
             </select>
-            <small className="form-text text-muted">
+            <small className="block mt-1 text-xs text-gray-500 dark:text-gray-400">
               Managers can manage users and all tasks. Users can only manage their own tasks.
             </small>
           </div>
 
-          <div className="form-actions">
-            <motion.button 
+          <div className="form-actions flex justify-end gap-4 mt-8">
+            <button 
               type="button" 
               onClick={handleCancel}
-              className="btn btn-outline"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="px-4 py-2 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-transform active:scale-95 transform hover:scale-[1.02]"
             >
-              <FaTimes className="btn-icon" />
+              <FaTimes className="mr-2" />
               Cancel
-            </motion.button>
-            <motion.button 
+            </button>
+            <button 
               type="submit" 
-              className="btn btn-primary"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="px-4 py-2 flex items-center justify-center bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform active:scale-95 transform hover:scale-[1.02]"
               disabled={isLoading}
             >
-              <FaSave className="btn-icon" />
+              <FaSave className="mr-2" />
               {isEditMode ? 'Update User' : 'Create User'}
-            </motion.button>
+            </button>
           </div>
         </form>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

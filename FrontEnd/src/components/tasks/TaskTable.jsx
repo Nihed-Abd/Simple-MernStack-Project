@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 function TaskTable({ tasks }) {
@@ -11,10 +10,10 @@ function TaskTable({ tasks }) {
   // Status badge component with color coding
   const StatusBadge = ({ status }) => {
     const statusClasses = {
-      'backlog': 'status-badge--gray',
-      'in-progress': 'status-badge--blue',
-      'review': 'status-badge--orange',
-      'completed': 'status-badge--green',
+      'backlog': 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
+      'in-progress': 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
+      'review': 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
+      'completed': 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
     };
 
     const statusLabels = {
@@ -25,72 +24,66 @@ function TaskTable({ tasks }) {
     };
 
     return (
-      <span className={`status-badge ${statusClasses[status] || ''}`}>
+      <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusClasses[status] || ''}`}>
         {statusLabels[status] || status}
       </span>
     );
   };
 
   return (
-    <div className="task-table-container">
-      <div className="task-table-responsive">
-        <table className="task-table">
-          <thead>
+    <div className="task-table-container w-full overflow-hidden">
+      <div className="task-table-responsive overflow-x-auto">
+        <table className="task-table w-full border-collapse text-left">
+          <thead className="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Assigned To</th>
-              <th>Created By</th>
-              <th>Actions</th>
+              <th className="px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Title</th>
+              <th className="px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+              <th className="px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Assigned To</th>
+              <th className="px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Created By</th>
+              <th className="px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <AnimatePresence>
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {tasks.map((task) => (
-                <motion.tr
+                <tr
                   key={task._id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  whileHover={{ backgroundColor: 'rgba(var(--highlight-rgb), 0.05)' }}
+                  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150 ease-in-out animate-fade-in"
                 >
-                  <td className="task-title">{task.title}</td>
-                  <td>
+                  <td className="px-4 py-3 text-sm text-gray-800 dark:text-gray-200 font-medium">{task.title}</td>
+                  <td className="px-4 py-3 text-sm">
                     <StatusBadge status={task.status} />
                   </td>
-                  <td>{task.assignedTo?.name || 'Unassigned'}</td>
-                  <td>{task.createdBy?.name || 'Unknown'}</td>
-                  <td>
-                    <div className="action-buttons">
-                      <Link to={`/tasks/${task._id}`} className="btn btn-icon btn-info">
-                        <FaEye />
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{task.assignedTo?.name || 'Unassigned'}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{task.createdBy?.name || 'Unknown'}</td>
+                  <td className="px-4 py-3 text-sm">
+                    <div className="action-buttons flex gap-2">
+                      <Link to={`/tasks/${task._id}`} className="p-1.5 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                        <FaEye size={14} />
                       </Link>
                       
                       {/* Edit button - shown if user is task creator or manager */}
                       {(isManager || task.createdBy?._id === user?._id) && (
-                        <Link to={`/tasks/${task._id}/edit`} className="btn btn-icon btn-primary">
-                          <FaEdit />
+                        <Link to={`/tasks/${task._id}/edit`} className="p-1.5 bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 rounded hover:bg-green-200 dark:hover:bg-green-800 transition-colors">
+                          <FaEdit size={14} />
                         </Link>
                       )}
                       
                       {/* Delete button - shown if user is task creator or manager */}
                       {(isManager || task.createdBy?._id === user?._id) && (
-                        <Link to={`/tasks/${task._id}/delete`} className="btn btn-icon btn-danger">
-                          <FaTrash />
+                        <Link to={`/tasks/${task._id}/delete`} className="p-1.5 bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 rounded hover:bg-red-200 dark:hover:bg-red-800 transition-colors">
+                          <FaTrash size={14} />
                         </Link>
                       )}
                     </div>
                   </td>
-                </motion.tr>
+                </tr>
               ))}
-            </AnimatePresence>
           </tbody>
         </table>
       </div>
 
       {tasks.length === 0 && (
-        <div className="empty-table">
+        <div className="empty-table bg-white dark:bg-gray-800 p-8 text-center text-gray-500 dark:text-gray-400 rounded-lg shadow mt-4">
           <p>No tasks found.</p>
         </div>
       )}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FiPlus, FiSearch, FiFilter, FiUsers, FiEdit2, FiTrash2 } from 'react-icons/fi';
-import { motion } from 'framer-motion';
 import { getUsers, deleteUser } from '../../features/users/userSlice';
 
 const UserManagement = () => {
@@ -120,11 +119,9 @@ const UserManagement = () => {
                 </thead>
                 <tbody>
                   {filteredUsers.map(user => (
-                    <motion.tr 
+                    <tr 
                       key={user._id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
+                      className="animate-fade-in transition-opacity duration-300"
                     >
                       <td>
                         <div className="user-cell">
@@ -168,7 +165,7 @@ const UserManagement = () => {
                           </button>
                         </div>
                       </td>
-                    </motion.tr>
+                    </tr>
                   ))}
                 </tbody>
               </table>

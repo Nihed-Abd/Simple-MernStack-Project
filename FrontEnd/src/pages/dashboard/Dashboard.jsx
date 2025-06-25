@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTasks, filterTasks } from '../../features/tasks/taskSlice';
 import { FaTasks, FaClock, FaCheck, FaExclamationTriangle } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import Spinner from '../../components/ui/Spinner';
 import TaskTable from '../../components/tasks/TaskTable';
 
@@ -62,110 +61,83 @@ function Dashboard() {
   }
 
   return (
-    <div className="dashboard">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="dashboard__header"
-      >
-        <h1 className="dashboard__title">
+    <div className="dashboard p-6">
+      <div className="dashboard__header animate-fade-in mb-6">
+        <h1 className="dashboard__title text-3xl font-bold text-gray-800 dark:text-white mb-2">
           Welcome, {user?.name}!
         </h1>
-        <p className="dashboard__subtitle">
+        <p className="dashboard__subtitle text-gray-600 dark:text-gray-300">
           {user?.role === 'manager' 
             ? 'Manage your team and track progress' 
             : 'Track your tasks and progress'}
         </p>
-      </motion.div>
+      </div>
 
       {/* Stats Cards */}
-      <motion.div 
-        className="stats-container"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-      >
+      <div className="stats-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in">
         {/* Total Tasks Card */}
-        <motion.div 
-          className="stats-card"
-          whileHover={{ y: -5, boxShadow: '0 8px 16px rgba(0,0,0,0.1)' }}
-        >
-          <div className="stats-card__icon stats-card__icon--blue">
-            <FaTasks />
+        <div className="stats-card bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all p-4 transform hover:scale-[1.02]">
+          <div className="stats-card__icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300 p-3 rounded-full">
+            <FaTasks className="text-xl" />
           </div>
-          <div className="stats-card__content">
-            <h3 className="stats-card__title">Total Tasks</h3>
-            <p className="stats-card__value">{taskStats.total}</p>
+          <div className="stats-card__content ml-4">
+            <h3 className="stats-card__title text-gray-600 dark:text-gray-300 text-sm font-medium">Total Tasks</h3>
+            <p className="stats-card__value text-2xl font-bold dark:text-white">{taskStats.total}</p>
           </div>
-          <div className="stats-card__footer">
-            <div className="progress-bar">
+          <div className="stats-card__footer mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+            <div className="progress-bar h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div 
-                className="progress-bar__fill" 
+                className="progress-bar__fill h-full bg-blue-500 dark:bg-blue-400 rounded-full" 
                 style={{ width: `${completionPercentage}%` }}
               ></div>
             </div>
-            <span className="stats-card__percentage">{completionPercentage}% completed</span>
+            <span className="stats-card__percentage text-xs text-gray-500 dark:text-gray-400 mt-1 block">{completionPercentage}% completed</span>
           </div>
-        </motion.div>
+        </div>
 
         {/* In Progress Tasks Card */}
-        <motion.div 
-          className="stats-card"
-          whileHover={{ y: -5, boxShadow: '0 8px 16px rgba(0,0,0,0.1)' }}
-        >
-          <div className="stats-card__icon stats-card__icon--orange">
-            <FaClock />
+        <div className="stats-card bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all p-4 transform hover:scale-[1.02]">
+          <div className="stats-card__icon bg-orange-100 text-orange-600 dark:bg-orange-900 dark:text-orange-300 p-3 rounded-full">
+            <FaClock className="text-xl" />
           </div>
-          <div className="stats-card__content">
-            <h3 className="stats-card__title">In Progress</h3>
-            <p className="stats-card__value">{taskStats.inProgress}</p>
+          <div className="stats-card__content ml-4">
+            <h3 className="stats-card__title text-gray-600 dark:text-gray-300 text-sm font-medium">In Progress</h3>
+            <p className="stats-card__value text-2xl font-bold dark:text-white">{taskStats.inProgress}</p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Completed Tasks Card */}
-        <motion.div 
-          className="stats-card"
-          whileHover={{ y: -5, boxShadow: '0 8px 16px rgba(0,0,0,0.1)' }}
-        >
-          <div className="stats-card__icon stats-card__icon--green">
-            <FaCheck />
+        <div className="stats-card bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all p-4 transform hover:scale-[1.02]">
+          <div className="stats-card__icon bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300 p-3 rounded-full">
+            <FaCheck className="text-xl" />
           </div>
-          <div className="stats-card__content">
-            <h3 className="stats-card__title">Completed</h3>
-            <p className="stats-card__value">{taskStats.completed}</p>
+          <div className="stats-card__content ml-4">
+            <h3 className="stats-card__title text-gray-600 dark:text-gray-300 text-sm font-medium">Completed</h3>
+            <p className="stats-card__value text-2xl font-bold dark:text-white">{taskStats.completed}</p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Waiting Tasks Card */}
-        <motion.div 
-          className="stats-card"
-          whileHover={{ y: -5, boxShadow: '0 8px 16px rgba(0,0,0,0.1)' }}
-        >
-          <div className="stats-card__icon stats-card__icon--red">
-            <FaExclamationTriangle />
+        <div className="stats-card bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all p-4 transform hover:scale-[1.02]">
+          <div className="stats-card__icon bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300 p-3 rounded-full">
+            <FaExclamationTriangle className="text-xl" />
           </div>
-          <div className="stats-card__content">
-            <h3 className="stats-card__title">Waiting</h3>
-            <p className="stats-card__value">{taskStats.waiting}</p>
+          <div className="stats-card__content ml-4">
+            <h3 className="stats-card__title text-gray-600 dark:text-gray-300 text-sm font-medium">Waiting</h3>
+            <p className="stats-card__value text-2xl font-bold dark:text-white">{taskStats.waiting}</p>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Filter and Search */}
-      <motion.div 
-        className="filters"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
-        <div className="search-container">
+      <div className="filters flex flex-col md:flex-row gap-4 justify-between mb-6 animate-fade-in">
+        <div className="search-container flex-1 max-w-md">
           <input
             type="text"
             placeholder="Search tasks..."
             value={searchTerm}
             onChange={handleSearch}
-            className="search-input"
+            className="search-input w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         
@@ -173,7 +145,7 @@ function Dashboard() {
           <select
             value={statusFilter}
             onChange={handleStatusFilter}
-            className="select-input"
+            className="select-input px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All statuses</option>
             <option value="backlog">Backlog</option>
@@ -182,29 +154,24 @@ function Dashboard() {
             <option value="completed">Completed</option>
           </select>
         </div>
-      </motion.div>
+      </div>
 
       {/* Tasks Table */}
-      <motion.div 
-        className="tasks-container"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-      >
-        <h2 className="section-title">
+      <div className="tasks-container bg-white dark:bg-gray-800 rounded-lg shadow p-4 animate-fade-in">
+        <h2 className="section-title text-xl font-bold text-gray-800 dark:text-white mb-4">
           {statusFilter !== 'all' 
             ? `${statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)} Tasks` 
             : 'All Tasks'}
         </h2>
         
         {filteredTasks.length === 0 ? (
-          <div className="empty-state">
+          <div className="empty-state text-center py-12 text-gray-500 dark:text-gray-400">
             <p>No tasks found. {searchTerm ? 'Try a different search term.' : ''}</p>
           </div>
         ) : (
           <TaskTable tasks={filteredTasks} />
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }
