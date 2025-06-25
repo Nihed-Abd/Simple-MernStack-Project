@@ -1,0 +1,228 @@
+.form-group {
+  margin-bottom: $spacing-4;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-label {
+  display: block;
+  margin-bottom: $spacing-2;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-control {
+  width: 100%;
+  padding: $spacing-3;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  transition: $transition-base;
+  
+  &:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(var(--highlight-rgb), 0.25);
+  }
+  
+  &::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+  
+  &:disabled {
+    background-color: var(--bg-dark);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  &.is-invalid {
+    border-color: var(--danger-color);
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+    }
+  }
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $spacing-3 center;
+  background-size: 16px 12px;
+  padding-right: $spacing-8;
+  
+  .dark-theme & {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23adb5bd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  }
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: $spacing-1;
+  font-size: $font-size-sm;
+  color: var(--danger-color);
+}
+
+.form-text {
+  display: block;
+  margin-top: $spacing-1;
+  font-size: $font-size-sm;
+  color: var(--text-muted);
+}
+
+// Checkboxes and radios
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-2;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-right: $spacing-2;
+    width: 1.25rem;
+    height: 1.25rem;
+    
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(var(--highlight-rgb), 0.25);
+    }
+  }
+  
+  .form-check-label {
+    cursor: pointer;
+  }
+}
+
+// Custom checkbox
+.custom-checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  padding-left: 2rem;
+  
+  input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    
+    &:checked ~ .checkmark {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      
+      &:after {
+        opacity: 1;
+      }
+    }
+    
+    &:focus ~ .checkmark {
+      box-shadow: 0 0 0 0.2rem rgba(var(--highlight-rgb), 0.25);
+    }
+  }
+  
+  .checkmark {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.25rem;
+    width: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-sm;
+    background-color: var(--bg-light);
+    transition: $transition-base;
+    
+    &:after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: $transition-fast;
+    }
+  }
+}
+
+// Form actions
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+  margin-top: $spacing-5;
+}
+
+// Search input
+.search-container {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  
+  .search-icon {
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: $spacing-2 $spacing-2 $spacing-2 $spacing-8;
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-full;
+    transition: $transition-base;
+    
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(var(--highlight-rgb), 0.15);
+    }
+  }
+}
+
+// Form grid layouts
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$spacing-2;
+  margin-left: -$spacing-2;
+  
+  .form-group {
+    padding-right: $spacing-2;
+    padding-left: $spacing-2;
+    flex: 0 0 100%;
+    
+    @include respond-to(md) {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+// Form in cards
+.card .form-group:last-child {
+  margin-bottom: 0;
+}

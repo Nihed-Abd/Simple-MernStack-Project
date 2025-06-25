@@ -1,0 +1,337 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  .app-content {
+    margin-top: 60px; // Header height
+    padding: $spacing-5;
+    flex: 1 1 auto;
+    transition: padding-left 0.3s ease;
+    width: 100%;
+    
+    // Content with sidebar open
+    @include respond-to(xl) {
+      padding-left: 250px; // Sidebar width
+    }
+  }
+  
+  // When sidebar is collapsed
+  .sidebar-collapsed + .app-content {
+    @include respond-to(xl) {
+      padding-left: 70px; // Collapsed sidebar width
+    }
+  }
+  
+  // Page container
+  .page-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    
+    &.page-container-fluid {
+      max-width: none;
+    }
+  }
+  
+  // Page header
+  .page-header {
+    margin-bottom: $spacing-5;
+    
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      margin-bottom: $spacing-2;
+      
+      .title-icon {
+        color: var(--primary-color);
+        font-size: 1.5em;
+      }
+    }
+    
+    .page-subtitle {
+      color: var(--text-muted);
+      margin: 0;
+    }
+  }
+}
+
+// Content areas
+.content-section {
+  margin-bottom: $spacing-6;
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-4;
+    
+    .section-title {
+      margin: 0;
+      font-size: $font-size-xl;
+      font-weight: 600;
+    }
+  }
+}
+
+// Dashboard layouts
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-5;
+  margin-bottom: $spacing-6;
+  
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.dashboard-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-5;
+  margin-bottom: $spacing-6;
+  
+  @include respond-to(lg) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// Specific layouts for different pages
+
+// Tasks layout
+.tasks-list-container,
+.users-list-container {
+  .tasks-list-header,
+  .users-list-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: $spacing-3;
+    margin-bottom: $spacing-5;
+    
+    @include respond-to(md) {
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    .header-left {
+      .tasks-list-title,
+      .users-list-title {
+        display: flex;
+        align-items: center;
+        gap: $spacing-2;
+        margin-bottom: $spacing-2;
+        
+        .title-icon {
+          color: var(--primary-color);
+          font-size: 1.5em;
+        }
+      }
+      
+      .tasks-list-subtitle,
+      .users-list-subtitle {
+        color: var(--text-muted);
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Task form layout
+.task-form-container,
+.user-form-container {
+  .task-form-header,
+  .user-form-header {
+    margin-bottom: $spacing-5;
+    
+    .task-form-title,
+    .user-form-title {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      margin-bottom: $spacing-2;
+      
+      .task-form-icon,
+      .user-form-icon {
+        color: var(--primary-color);
+        font-size: 1.5em;
+      }
+    }
+    
+    .task-form-subtitle,
+    .user-form-subtitle {
+      color: var(--text-muted);
+      margin: 0;
+    }
+  }
+  
+  .task-form-card,
+  .user-form-card {
+    background-color: var(--bg-light);
+    border-radius: $border-radius;
+    box-shadow: $shadow;
+    padding: $spacing-5;
+    border: 1px solid var(--border-color);
+  }
+}
+
+// Task detail layout
+.task-detail-container {
+  .task-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-5;
+    flex-wrap: wrap;
+    gap: $spacing-3;
+    
+    .task-title-wrap {
+      .task-id {
+        display: inline-block;
+        font-size: $font-size-sm;
+        color: var(--text-muted);
+        margin-bottom: $spacing-1;
+      }
+      
+      .task-title {
+        margin: 0 0 $spacing-2 0;
+      }
+      
+      .task-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-3;
+        align-items: center;
+        margin-top: $spacing-2;
+        
+        .task-meta-item {
+          display: flex;
+          align-items: center;
+          gap: $spacing-1;
+          
+          .meta-label {
+            color: var(--text-muted);
+            font-size: $font-size-sm;
+          }
+          
+          .meta-value {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    
+    .task-actions {
+      display: flex;
+      gap: $spacing-2;
+    }
+  }
+  
+  .task-detail-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-5;
+    
+    @include respond-to(lg) {
+      grid-template-columns: 2fr 1fr;
+    }
+    
+    .task-main-content {
+      .task-description {
+        margin-bottom: $spacing-5;
+      }
+      
+      .task-comments {
+        .comment {
+          margin-bottom: $spacing-4;
+          
+          .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: $spacing-2;
+            
+            .comment-author {
+              font-weight: 600;
+              margin-right: auto;
+            }
+            
+            .comment-date {
+              color: var(--text-muted);
+              font-size: $font-size-sm;
+            }
+          }
+        }
+        
+        .comment-form {
+          margin-top: $spacing-4;
+        }
+      }
+    }
+    
+    .task-sidebar {
+      .task-status-card,
+      .task-assignee-card {
+        margin-bottom: $spacing-4;
+        background-color: var(--bg-light);
+        border-radius: $border-radius;
+        border: 1px solid var(--border-color);
+        padding: $spacing-4;
+        
+        .card-title {
+          font-size: $font-size-lg;
+          margin-bottom: $spacing-3;
+        }
+      }
+      
+      .task-timeline {
+        .timeline-item {
+          position: relative;
+          padding-left: $spacing-5;
+          padding-bottom: $spacing-4;
+          
+          &::before {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 6px;
+            height: 100%;
+            width: 2px;
+            background-color: var(--border-color);
+          }
+          
+          &:last-child::before {
+            display: none;
+          }
+          
+          .timeline-point {
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+          }
+          
+          .timeline-content {
+            .timeline-title {
+              font-weight: 500;
+              margin-bottom: $spacing-1;
+            }
+            
+            .timeline-date {
+              font-size: $font-size-sm;
+              color: var(--text-muted);
+            }
+          }
+        }
+      }
+    }
+  }
+}

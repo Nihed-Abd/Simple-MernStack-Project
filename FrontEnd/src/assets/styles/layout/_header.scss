@@ -1,0 +1,317 @@
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 60px;
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-color);
+  z-index: $z-index-sidebar - 10;
+  transition: $transition-base;
+  padding: 0 $spacing-4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: $shadow-sm;
+  
+  @include respond-to(md) {
+    padding: 0 $spacing-5;
+  }
+  
+  // Header with open sidebar
+  .sidebar-open + & {
+    @include respond-to(xl) {
+      left: 250px;
+    }
+  }
+  
+  // Toggle button for sidebar
+  .sidebar-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: $transition-base;
+    
+    &:hover {
+      background-color: rgba(var(--highlight-rgb), 0.1);
+    }
+    
+    @include respond-to(xl) {
+      display: none;
+    }
+  }
+  
+  // Header left area (toggle & search)
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+  
+  // Search in header
+  .header-search {
+    display: none;
+    
+    @include respond-to(md) {
+      display: block;
+      width: 300px;
+    }
+    
+    @include respond-to(lg) {
+      width: 350px;
+    }
+  }
+  
+  // Header right area (profile, notifications, etc.)
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+  
+  // Theme switcher
+  .theme-switcher {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: $border-radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: $transition-base;
+    
+    &:hover {
+      background-color: rgba(var(--highlight-rgb), 0.1);
+    }
+  }
+  
+  // User dropdown
+  .user-dropdown {
+    position: relative;
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      padding: $spacing-1;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: $transition-base;
+      
+      &:hover {
+        background-color: rgba(var(--highlight-rgb), 0.05);
+      }
+      
+      @include respond-to(md) {
+        padding: $spacing-2 $spacing-3;
+      }
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: $border-radius-full;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+    .user-info {
+      display: none;
+      
+      @include respond-to(md) {
+        display: block;
+      }
+      
+      .user-name {
+        font-weight: 600;
+        font-size: $font-size-base;
+        margin: 0;
+      }
+      
+      .user-role {
+        font-size: $font-size-sm;
+        color: var(--text-muted);
+        margin: 0;
+      }
+    }
+    
+    .dropdown-menu {
+      width: 220px;
+      
+      @include respond-to(md) {
+        width: 260px;
+      }
+      
+      .user-details {
+        padding: $spacing-3;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: $spacing-2;
+        
+        .user-name {
+          font-weight: 600;
+          margin-bottom: $spacing-1;
+        }
+        
+        .user-email {
+          font-size: $font-size-sm;
+          color: var(--text-muted);
+          margin: 0;
+          @include truncate;
+        }
+      }
+      
+      .quick-links {
+        padding: $spacing-1;
+        
+        .dropdown-item {
+          padding: $spacing-2 $spacing-3;
+        }
+      }
+    }
+  }
+  
+  // Notifications
+  .notifications {
+    position: relative;
+    
+    .notifications-icon {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: $border-radius-full;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: $transition-base;
+      position: relative;
+      
+      &:hover {
+        background-color: rgba(var(--highlight-rgb), 0.1);
+      }
+    }
+    
+    .dropdown-menu {
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 0;
+      
+      .notification-header {
+        padding: $spacing-3;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h6 {
+          margin: 0;
+        }
+        
+        .mark-all-read {
+          font-size: $font-size-sm;
+          color: var(--primary-color);
+          cursor: pointer;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      
+      .notification-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        
+        .notification-item {
+          padding: $spacing-3;
+          border-bottom: 1px solid var(--border-color);
+          transition: $transition-base;
+          cursor: pointer;
+          
+          &:hover {
+            background-color: rgba(var(--highlight-rgb), 0.05);
+          }
+          
+          &.unread {
+            background-color: rgba(var(--highlight-rgb), 0.03);
+            
+            &::before {
+              content: "";
+              display: block;
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 4px;
+              height: 4px;
+              background-color: var(--primary-color);
+              border-radius: $border-radius-full;
+            }
+          }
+          
+          .notification-title {
+            font-weight: 500;
+            margin-bottom: $spacing-1;
+            font-size: $font-size-base;
+          }
+          
+          .notification-text {
+            color: var(--text-muted);
+            font-size: $font-size-sm;
+            margin-bottom: $spacing-2;
+          }
+          
+          .notification-time {
+            font-size: $font-size-sm;
+            color: var(--text-muted);
+          }
+        }
+      }
+      
+      .notification-footer {
+        padding: $spacing-3;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        
+        a {
+          color: var(--primary-color);
+          font-size: $font-size-sm;
+          font-weight: 500;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

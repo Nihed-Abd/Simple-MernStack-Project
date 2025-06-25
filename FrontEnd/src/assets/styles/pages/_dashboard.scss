@@ -1,0 +1,383 @@
+.dashboard-container {
+  .dashboard-header {
+    margin-bottom: $spacing-5;
+    
+    .greeting-section {
+      margin-bottom: $spacing-5;
+      
+      .greeting {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin-bottom: $spacing-1;
+      }
+      
+      .date {
+        color: var(--text-muted);
+      }
+    }
+    
+    .dashboard-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: $spacing-3;
+      margin-bottom: $spacing-5;
+      
+      .filter-item {
+        flex: 1;
+        min-width: 180px;
+        max-width: 300px;
+        
+        @media (max-width: $breakpoint-md) {
+          min-width: 100%;
+        }
+      }
+    }
+  }
+  
+  // Stats cards 
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .stat-card {
+      position: relative;
+      background-color: var(--bg-light);
+      border-radius: $border-radius;
+      padding: $spacing-4;
+      box-shadow: $shadow;
+      border: 1px solid var(--border-color);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-lg;
+      }
+      
+      .stat-icon {
+        position: absolute;
+        top: $spacing-4;
+        right: $spacing-4;
+        font-size: 2.5rem;
+        opacity: 0.15;
+      }
+      
+      .stat-title {
+        color: var(--text-muted);
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-2;
+      }
+      
+      .stat-value {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin-bottom: $spacing-2;
+        z-index: 5;
+        position: relative;
+      }
+      
+      .stat-change {
+        display: flex;
+        align-items: center;
+        font-size: $font-size-sm;
+        
+        &-positive {
+          color: var(--success-color);
+        }
+        
+        &-negative {
+          color: var(--danger-color);
+        }
+        
+        svg {
+          margin-right: $spacing-1;
+        }
+      }
+      
+      // Status-specific styling
+      &.backlog {
+        border-top: 3px solid var(--status-backlog);
+      }
+      
+      &.in-progress {
+        border-top: 3px solid var(--status-in-progress);
+      }
+      
+      &.review {
+        border-top: 3px solid var(--status-review);
+      }
+      
+      &.completed {
+        border-top: 3px solid var(--status-completed);
+      }
+    }
+  }
+  
+  // Tasks overview section
+  .tasks-overview {
+    margin-bottom: $spacing-6;
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: $spacing-4;
+      flex-wrap: wrap;
+      gap: $spacing-3;
+      
+      .section-title {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: $spacing-2;
+        
+        .task-count {
+          background-color: rgba(var(--highlight-rgb), 0.1);
+          color: var(--primary-color);
+          padding: 0.2rem 0.6rem;
+          border-radius: $border-radius-full;
+          font-size: $font-size-sm;
+          font-weight: 500;
+        }
+      }
+      
+      .view-all-link {
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-1;
+        color: var(--primary-color);
+        font-weight: 500;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  // Chart sections
+  .dashboard-charts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-5;
+    margin-bottom: $spacing-6;
+    
+    @include respond-to(lg) {
+      grid-template-columns: 2fr 1fr;
+    }
+    
+    .chart-card {
+      background-color: var(--bg-light);
+      border-radius: $border-radius;
+      padding: $spacing-4;
+      box-shadow: $shadow;
+      border: 1px solid var(--border-color);
+      height: 100%;
+      
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-4;
+        
+        .chart-title {
+          font-weight: 600;
+          margin: 0;
+        }
+        
+        .chart-actions {
+          .btn {
+            padding: $spacing-1 $spacing-2;
+            font-size: $font-size-sm;
+          }
+        }
+      }
+      
+      .chart-container {
+        height: 300px;
+        width: 100%;
+      }
+    }
+  }
+  
+  // Recent activity
+  .activity-feed {
+    background-color: var(--bg-light);
+    border-radius: $border-radius;
+    padding: $spacing-4;
+    box-shadow: $shadow;
+    border: 1px solid var(--border-color);
+    
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: $spacing-4;
+      
+      .activity-title {
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+    
+    .activity-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      
+      .activity-item {
+        display: flex;
+        padding: $spacing-3 0;
+        border-bottom: 1px solid var(--border-color);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .activity-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: $border-radius-full;
+          background-color: rgba(var(--highlight-rgb), 0.1);
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: $spacing-3;
+          flex-shrink: 0;
+          
+          &.task-created {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--info-color);
+          }
+          
+          &.task-updated {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+          }
+          
+          &.task-completed {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+          }
+        }
+        
+        .activity-content {
+          flex-grow: 1;
+          
+          .activity-text {
+            margin-bottom: $spacing-1;
+            line-height: 1.4;
+            
+            .highlight {
+              font-weight: 600;
+            }
+          }
+          
+          .activity-time {
+            font-size: $font-size-sm;
+            color: var(--text-muted);
+          }
+        }
+      }
+    }
+  }
+  
+  // Tasks by user section
+  .tasks-by-user {
+    background-color: var(--bg-light);
+    border-radius: $border-radius;
+    padding: $spacing-4;
+    box-shadow: $shadow;
+    border: 1px solid var(--border-color);
+    margin-bottom: $spacing-6;
+    
+    .user-tasks-header {
+      margin-bottom: $spacing-4;
+      
+      .user-tasks-title {
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+    
+    .user-tasks-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-3;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .user-task-card {
+        display: flex;
+        align-items: center;
+        padding: $spacing-3;
+        border: 1px solid var(--border-color);
+        border-radius: $border-radius;
+        background-color: var(--bg-light);
+        transition: $transition-base;
+        
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: $shadow;
+        }
+        
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: $border-radius-full;
+          background-color: var(--primary-color);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          margin-right: $spacing-3;
+        }
+        
+        .user-task-info {
+          flex-grow: 1;
+          
+          .user-name {
+            font-weight: 600;
+            margin: 0 0 $spacing-1 0;
+            @include truncate;
+          }
+          
+          .task-counts {
+            display: flex;
+            gap: $spacing-3;
+            
+            .count-item {
+              font-size: $font-size-sm;
+              
+              .count {
+                font-weight: 600;
+              }
+              
+              .label {
+                color: var(--text-muted);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
